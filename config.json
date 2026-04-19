@@ -1,0 +1,17 @@
+{
+    "output_file": "output1.pptx",
+    "images": [
+        {
+            "image_path": "D:/trae_proj/write_ppt/material/PixPin_2026-04-19_09-25-13.png",
+            "description": "这是第一张图片的文字描述。\n可以写多行内容。",
+            "title": "图片 1",
+            "table": ["表格第1列", "表格第2列"]
+        },
+        {
+            "image_path": "D:/trae_proj/write_ppt/material/PixPin_2026-04-19_13-07-25.png",
+            "description": "这是第二张图片的文字描述。\n支持多种图片格式（jpg、png、bmp等）。",
+            "title": "图片 2",
+            "table": ["名称：示例图片", "日期：2026-04-19"]
+        }
+    ]
+}

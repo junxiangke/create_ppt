@@ -62,23 +62,48 @@ def create_ppt_with_images(output_path, image_data_list):
         slide_layout_image = prs.slide_layouts[6]
         slide_image = prs.slides.add_slide(slide_layout_image)
 
-        img_title_box = slide_image.shapes.add_textbox(
-            Inches(0.5), Inches(0.3), Inches(12.333), Inches(0.8)
-        )
-        img_tf_title = img_title_box.text_frame
-        img_p_title = img_tf_title.paragraphs[0]
-        img_p_title.text = f'{title} - 图片展示'
-        img_p_title.font.size = Pt(28)
-        img_p_title.font.bold = True
-        img_p_title.alignment = PP_ALIGN.CENTER
+        # img_title_box = slide_image.shapes.add_textbox(
+        #     Inches(0.5), Inches(0.2), Inches(12.333), Inches(0.6)
+        # )
+        # img_tf_title = img_title_box.text_frame
+        # img_p_title = img_tf_title.paragraphs[0]
+        # img_p_title.text = f'{title} - 图片展示'
+        # img_p_title.font.size = Pt(28)
+        # img_p_title.font.bold = True
+        # img_p_title.alignment = PP_ALIGN.CENTER
+
+        table_data = data.get('table', None)
+        if table_data:
+            rows, cols = 1, 2
+            left = Inches(0.5)
+            top = Inches(0.2)
+            width = Inches(10.333)
+            height = Inches(0.4)
+
+            table = slide_image.shapes.add_table(rows, cols, left, top, width, height).table
+
+            cell_0 = table.cell(0, 0)
+            cell_0.text = table_data[0] if len(table_data) > 0 else ""
+            cell_0.text_frame.paragraphs[0].font.size = Pt(14)
+            cell_0.text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER
+
+            cell_1 = table.cell(0, 1)
+            cell_1.text = table_data[1] if len(table_data) > 1 else ""
+            cell_1.text_frame.paragraphs[0].font.size = Pt(14)
+            cell_1.text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER
+
+            
+        pic_top = Inches(0.8)
 
         try:
+            # 图片的宽度不要超过12.5英寸，高度不要超过6.5英寸，每inch是96像素
+            # 两张图片并排展示，每张图片像素个数最多600*600
             pic = slide_image.shapes.add_picture(
                 image_path,
-                left=Inches(1.5),
-                top=Inches(1.3),
-                width=Inches(10.333),
-                height=Inches(5.7)
+                left=Inches(0.5),
+                top=pic_top,
+                width=Inches(12.5),
+                height=Inches(6.5)
             )
         except Exception as e:
             print(f"插入图片失败 {image_path}: {e}")
